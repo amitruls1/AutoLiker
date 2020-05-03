@@ -4,6 +4,9 @@
     "description": "This extension is use to start auto like on Tinder, Bumble and OKCupid",
     "manifest_version": 2,
     "minimum_chrome_version": "46",
+    "permissions": [
+        "activeTab"
+      ],
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
