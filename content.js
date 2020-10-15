@@ -92,7 +92,7 @@ const executeOkCupid = async () => {
     } catch (e) {
       console.log(e);
     } finally {
-      startFucking();
+        executeOkCupid();
     }
     
 }
