@@ -89,10 +89,8 @@ const executeOkCupid = async () => {
       await sleep(2500);
       document.querySelector(".navbar a").click();
       await sleep(2500);
+      executeOkCupid();
     } catch (e) {
       console.log(e);
-    } finally {
-        executeOkCupid();
-    }
     
 }
