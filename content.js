@@ -74,7 +74,7 @@ const executeOkCupid = async () => {
       await sleep(2500);
       document.querySelectorAll(".likes-pill-button")[0].click();
       await sleep(2500);
-      document.querySelector(".messenger-composer").value = Math.abs(Math.random()*30);
+      document.querySelector(".messenger-composer").value = lines[Math.abs(Math.random()*30)];
       await sleep(2500);
       var event = new Event('input', {
           bubbles: true,
@@ -91,6 +91,8 @@ const executeOkCupid = async () => {
       await sleep(2500);
       executeOkCupid();
     } catch (e) {
-      console.log(e);
+        document.querySelector(".navbar a").click();
+        await sleep(2500);
+        console.log(e);
     
 }
