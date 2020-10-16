@@ -94,5 +94,6 @@ const executeOkCupid = async () => {
         document.querySelector(".navbar a").click();
         await sleep(2500);
         console.log(e);
+    }
     
 }
