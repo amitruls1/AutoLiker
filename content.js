@@ -1,32 +1,46 @@
-chrome.runtime.onMessage.addListener((type) => {
-    console.log(type);
-    switch (type) {
-        case "tinder":
-            executeTinder();
-            return;
+chrome.runtime.onMessage.addListener(({ type, interval, message }) => {
+  switch (type) {
+    case "tinder":
+      executeTinder(interval);
+      return;
 
-        case "bumble":
-            executeBumble();
-            return;
+    case "bumble":
+      executeBumble(interval);
+      return;
 
-        case "okcupid":
-            executeOkCupid();
-            return;
-    }
-
-})
+    case "okcupid":
+      executeOkCupid(message);
+      return;
+  }
+});
 
 // This function will start auto liking profiles on Tinder.
 
-const executeTinder = () => {
-    window.setInterval(()=>{document.querySelectorAll(".button")[3].click();}, 300);
-}
+const executeTinder = (interval) => {
+  window.setInterval(() => {
+    document.querySelectorAll(".button")[3].click();
+  }, interval);
+};
 
 // This function will start auto liking profiles on Bumble.
-
-const executeBumble = () => {
-    window.setInterval(()=>{document.getElementsByClassName("encounters-action--like")[0].click();}, 300);
+function eventFire(el, etype) {
+  if (el.fireEvent) {
+    el.fireEvent("on" + etype);
+  } else {
+    var evObj = document.createEvent("Events");
+    evObj.initEvent(etype, true, false);
+    el.dispatchEvent(evObj);
+  }
 }
+
+const executeBumble = (interval) => {
+  window.setInterval(() => {
+    eventFire(
+      document.querySelectorAll(".encounters-action--like")[0],
+      "click"
+    );
+  }, interval);
+};
 
 // This function will perform profile open => profile like => profile message send and repeate this process on OKCupid.
 
@@ -62,38 +76,43 @@ const lines = [
   `Don't tell me if you want me to take you out to dinner. Just smile for yes, or do a backflip/somersault/counter-spin gymnastics combination for no.`,
   `I wasn't always religious. But I am now, because you're the answer to all my prayers.`,
   `If I could rearrange the alphabet, I'd put 'I' and 'U' together.`,
-  `You must be exhausted. You've been running through my mind all day.`
+  `You must be exhausted. You've been running through my mind all day.`,
 ];
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms || DEF_DELAY));
+  return new Promise((resolve) => setTimeout(resolve, ms || DEF_DELAY));
 }
 
-const executeOkCupid = async () => {
-    try {
-      document.querySelectorAll(".cardsummary-profile-link > a")[0].click();
-      await sleep(2500);
-      document.querySelectorAll(".likes-pill-button")[0].click();
-      await sleep(2500);
-      document.querySelector(".messenger-composer").value = lines[Math.floor(Math.random()*30)];
-      await sleep(2500);
-      var event = new Event('input', {
-          bubbles: true,
-          cancelable: true,
-      });
-      document.querySelector(".messenger-composer").dispatchEvent(event);
-      await sleep(2500);
-      console.log("sending message");
-      document.querySelector(".messenger-toolbar-send").click();
-      await sleep(2500);
-      document.querySelector(".connection-view-container-close-button").click();
-      await sleep(2500);
-      document.querySelector(".navbar a").click();
-      await sleep(2500);
-      executeOkCupid();
-    } catch (e) {
-        document.querySelector(".navbar a").click();
-        await sleep(2500);
-        console.log(e);
+const executeOkCupid = async (message) => {
+  try {
+    document.querySelectorAll(".intro")[0].click();
+    await sleep(2500);
+    document.querySelector(".messenger-composer").value = message
+      ? message
+      : lines[2];
+    await sleep(2500);
+    var event = new Event("input", {
+      bubbles: true,
+      cancelable: true,
+    });
+    document.querySelector(".messenger-composer").dispatchEvent(event);
+    await sleep(2500);
+    document.querySelector(".messenger-toolbar-send").click();
+    await sleep(2500);
+    document.querySelector(".connection-view-container-close-button").click();
+    await sleep(2500);
+    executeOkCupid(message ? message : lines[2]);
+  } catch (e) {
+    await sleep(2500);
+    if (
+      document.querySelectorAll(".connection-view-container-close-button")
+        .length
+    ) {
+      document
+        .querySelectorAll(".connection-view-container-close-button")[0]
+        .click();
     }
-    
-}
+    await sleep(2500);
+    executeOkCupid(message ? message : lines[2]);
+    console.log(e);
+  }
+};

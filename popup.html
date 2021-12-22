@@ -1,74 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'sha256-h7DejX9K1ypTP7Rvepg7kMexlKYDZEEEVQeMyBpCiJM='">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300,700,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'sha256-h7DejX9K1ypTP7Rvepg7kMexlKYDZEEEVQeMyBpCiJM='"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300,700,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
     <title>Auto Liker</title>
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif !important;
-            padding: 10px;
-        }
-        .box-layout {
-            width: 300px;
-            padding: 10px;
-            /* box-shadow: 1px 1px 2px 1px #ccc; */
-            height: auto;
-        }
-        .tinder {
-            margin: 10px 0;
-            border: 0px;
-            letter-spacing: 1px;
-            text-align: center;
-            width: 100%;
-            height: 50px;
-            border-radius: 10px;
-            background: #fd297b;
-            color: #fff;
-            font-weight: 700;
-        }
-        .bumble {
-            margin: 10px 0;
-            border: 0px;
-            letter-spacing: 1px;
-            text-align: center;
-            width: 100%;
-            height: 50px;
-            border-radius: 10px;
-            background:rgb(255, 198, 41);
-            color: #fff;
-            font-weight: 700;
-        }
-        .okcupid {
-            margin: 10px 0;
-            border: 0px;
-            letter-spacing: 1px;
-            text-align: center;
-            width: 100%;
-            height: 50px;
-            border-radius: 10px;
-            background: #ff4dc4;
-            color: #fff;
-            font-weight: 700;
-        }
+      body {
+        font-family: "Montserrat", sans-serif !important;
+        padding: 10px;
+      }
+      .box-layout {
+        width: 300px;
+        padding: 10px;
+        /* box-shadow: 1px 1px 2px 1px #ccc; */
+        height: auto;
+      }
+      .tinder {
+        margin: 10px 0;
+        border: 0px;
+        letter-spacing: 1px;
+        text-align: center;
+        width: 100%;
+        height: 35px;
+        border-radius: 10px;
+        background: #fd297b;
+        color: #fff;
+        font-weight: 500;
+      }
+      .bumble {
+        margin: 10px 0;
+        border: 0px;
+        letter-spacing: 1px;
+        text-align: center;
+        width: 100%;
+        height: 35px;
+        border-radius: 10px;
+        background: rgb(255, 198, 41);
+        color: #fff;
+        font-weight: 500;
+      }
+      .okcupid {
+        margin: 10px 0;
+        border: 0px;
+        letter-spacing: 1px;
+        text-align: center;
+        width: 100%;
+        height: 35px;
+        border-radius: 10px;
+        background: #ff4dc4;
+        color: #fff;
+        font-weight: 500;
+      }
+      #tinder_interval {
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #ec3f7a;
+        padding: 10px;
+      }
+      #bumble_interval {
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #f9c647;
+        padding: 10px;
+      }
+      #okcupid_message {
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #ff4dc4;
+        padding: 10px;
+      }
     </style>
-</head>
-<body>
-    <div class = "box-layout text-center">
-        <h5 class = "text-center"> <strong>Auto Liker</strong> <hr style = "margin-bottom: 10px" /> </h5>
-        <button class = "tinder"> Start Tinder Auto Like </button>
-        <button class = "bumble"> Start Bumble Auto Like </button>
-        <button class = "okcupid"> Start Okcupid Auto Like </button>
-        <br/>
-        <small class = "description text-center">  Please go to match page of any site and press button according to that site. </small>
-        <br/> <br/>
-        <small class = "description text-center"> <strong> If you like this project and want to improve it. Please feel free to visit <br /><br/><a href = "https://github.com/iamnotbatma/AutoLiker" target = "_blank" style = "text-decoration: none; background: #fd297b; padding: 5px; color: white; border-radius: 4px"> iamnotbatma<img width = "25px" src = "Octocat.png"/> </a> </strong> </small>
-        <br/><br/ >
-        <small><a target="_blank" href="https://icons8.com/icons/set/love-message">Love Message icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></small>
+  </head>
+  <body>
+    <div class="box-layout text-center">
+      <h5 class="text-center">
+        <strong>Auto Liker</strong>
+      </h5>
+      <hr />
+      <input
+        type="number"
+        min="300"
+        id="tinder_interval"
+        placeholder="Enter click time interval, default 300ms"
+      />
+      <button class="tinder">Start Tinder Auto Like</button>
+      <hr />
+      <input
+        type="number"
+        min="300"
+        id="bumble_interval"
+        placeholder="Enter click time interval, default 300ms"
+      />
+      <button class="bumble">Start Bumble Auto Like</button>
+      <hr />
+
+      <input
+        type="text"
+        id="okcupid_message"
+        placeholder="Write your own pick up line."
+      />
+      <button class="okcupid">Start Okcupid Auto Like</button>
+      <br />
+      <small class="description text-center">
+        Please go to match page of any site and press button according to that
+        site.
+      </small>
+      <br />
+      <br />
+      <small class="description text-center">
+        <strong>
+          If you like this project and want to improve it. Please feel free to
+          visit <br /><br /><a
+            href="https://github.com/iamnotbatma/AutoLiker"
+            target="_blank"
+            style="
+              text-decoration: none;
+              background: #fd297b;
+              padding: 5px;
+              color: white;
+              border-radius: 4px;
+            "
+          >
+            iamnotbatma<img width="25px" src="Octocat.png" />
+          </a>
+        </strong>
+      </small>
+      <br /><br/ >
+      <small
+        ><a target="_blank" href="https://icons8.com/icons/set/love-message"
+          >Love Message icon</a
+        >
+        icon by <a target="_blank" href="https://icons8.com">Icons8</a></small
+      >
     </div>
-    <script src = "like.js"></script>
-</body>
+    <script src="like.js"></script>
+  </body>
 </html>
