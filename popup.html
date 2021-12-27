@@ -71,6 +71,12 @@
         border-radius: 5px;
         border: 1px solid #ec3f7a;
         padding: 10px;
+        display: inline-block;
+      }
+      #tinder_badword_checkbox {
+        width: 100%;
+        cursor: pointer;
+        display: inline-block;
       }
       #bumble_interval {
         width: 100%;
@@ -94,12 +100,18 @@
         <strong>Auto Liker</strong>
       </h5>
       <hr />
-      <input
-        type="number"
-        min="300"
-        id="tinder_interval"
-        placeholder="Enter click time interval, default 300ms"
-      />
+      <div>
+        <label id="tinder_badword_checkbox">
+          <input type="checkbox" id="tinder_badword" />
+          Detect Non Straight
+        </label>
+        <input
+          type="number"
+          min="300"
+          id="tinder_interval"
+          placeholder="Enter click time interval, default 300ms"
+        />
+      </div>
       <button class="tinder">Start Tinder Auto Like</button>
       <hr />
       <input
@@ -123,32 +135,6 @@
         site.
       </small>
       <br />
-      <br />
-      <small class="description text-center">
-        <strong>
-          If you like this project and want to improve it. Please feel free to
-          visit <br /><br /><a
-            href="https://github.com/iamnotbatma/AutoLiker"
-            target="_blank"
-            style="
-              text-decoration: none;
-              background: #fd297b;
-              padding: 5px;
-              color: white;
-              border-radius: 4px;
-            "
-          >
-            iamnotbatma<img width="25px" src="Octocat.png" />
-          </a>
-        </strong>
-      </small>
-      <br /><br/ >
-      <small
-        ><a target="_blank" href="https://icons8.com/icons/set/love-message"
-          >Love Message icon</a
-        >
-        icon by <a target="_blank" href="https://icons8.com">Icons8</a></small
-      >
     </div>
     <script src="like.js"></script>
   </body>

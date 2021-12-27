@@ -1,17 +1,24 @@
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+    console.log("extension loaded");
+
     document.querySelector(".tinder").addEventListener("click", tinder, false);
     document.querySelector(".bumble").addEventListener("click", bumble, false);
     document
       .querySelector(".okcupid")
       .addEventListener("click", okcupid, false);
-
     // This function is to handle whenever tinder button will be clicked.
     function tinder() {
       const interval = document.querySelector("#tinder_interval").value || 300;
+      const isNonGenderDetection = document.querySelector("#tinder_badword")
+        .checked;
       chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, { type: "tinder", interval });
+        chrome.tabs.sendMessage(tabs[0].id, {
+          type: "tinder",
+          interval,
+          isNonGenderDetection,
+        });
       });
     }
 

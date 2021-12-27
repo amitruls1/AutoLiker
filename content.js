@@ -1,7 +1,8 @@
-chrome.runtime.onMessage.addListener(({ type, interval, message }) => {
+chrome.runtime.onMessage.addListener((props) => {
+  const { type, interval, message, isNonGenderDetection } = props;
   switch (type) {
     case "tinder":
-      executeTinder(interval);
+      executeTinder(interval, isNonGenderDetection);
       return;
 
     case "bumble":
@@ -15,10 +16,59 @@ chrome.runtime.onMessage.addListener(({ type, interval, message }) => {
 });
 
 // This function will start auto liking profiles on Tinder.
-
-const executeTinder = (interval) => {
+const rejectWords = [
+  " trans ",
+  " gay ",
+  " lesbian ",
+  " crossdresser ",
+  " transwomen ",
+];
+let totalTinderLikes = 0;
+let totalTinderDisLikes = 0;
+const executeTinder = (interval, isNonGenderDetection) => {
   window.setInterval(() => {
-    document.querySelectorAll(".button")[3].click();
+    let isReject = false;
+    if (isNonGenderDetection) {
+      try {
+        const bioArray = document.querySelectorAll(".BreakWord");
+        if (bioArray.length) {
+          rejectWords.forEach((item) => {
+            if (bioArray[0].innerText.includes(item)) {
+              isReject = true;
+            }
+          });
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (isReject) {
+      console.log("Detected Non Straight Gender");
+      try {
+        if (document.querySelectorAll("[itemprop='name']").length > 1) {
+          console.log(
+            `Disliked ${
+              document.querySelectorAll("[itemprop='name']")[1].innerText
+            }`
+          );
+        }
+      } catch (e) {
+        console.error(e);
+      }
+      totalTinderDisLikes++;
+      document.querySelectorAll(".button")[1].click();
+    } else {
+      totalTinderLikes++;
+      document.querySelectorAll(".button")[3].click();
+    }
+    console.log(
+      `%cTotal Likes ${totalTinderLikes}`,
+      "color:green; font-weight: 600;"
+    );
+    console.log(
+      `%cTotal Dislikes ${totalTinderDisLikes}`,
+      "color:red; font-weight: 600;"
+    );
   }, interval);
 };
 
@@ -33,11 +83,18 @@ function eventFire(el, etype) {
   }
 }
 
+let totalBumbleLikes = 0;
+let totalBumbleDisLikes = 0;
 const executeBumble = (interval) => {
   window.setInterval(() => {
     eventFire(
       document.querySelectorAll(".encounters-action--like")[0],
       "click"
+    );
+    totalBumbleLikes++;
+    console.log(
+      `%cTotal Likes ${totalBumbleLikes}`,
+      "color:green; font-weight: 600;"
     );
   }, interval);
 };
@@ -81,7 +138,8 @@ const lines = [
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms || DEF_DELAY));
 }
-
+let totalOkcupidLikes = 0;
+let totalOkcupidDisLikes = 0;
 const executeOkCupid = async (message) => {
   try {
     document.querySelectorAll(".intro")[0].click();
@@ -101,6 +159,11 @@ const executeOkCupid = async (message) => {
     document.querySelector(".connection-view-container-close-button").click();
     await sleep(2500);
     executeOkCupid(message ? message : lines[2]);
+    totalOkcupidLikes++;
+    console.log(
+      `%cTotal Likes & Message ${totalOkcupidLikes}`,
+      "color:green; font-weight: 600;"
+    );
   } catch (e) {
     await sleep(2500);
     if (
