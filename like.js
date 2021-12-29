@@ -11,13 +11,13 @@ document.addEventListener(
     // This function is to handle whenever tinder button will be clicked.
     function tinder() {
       const interval = document.querySelector("#tinder_interval").value || 300;
-      const isNonGenderDetection = document.querySelector("#tinder_badword")
-        .checked;
+      // const isNonGenderDetection = document.querySelector("#tinder_badword")
+      //   .checked;
       chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, {
           type: "tinder",
           interval,
-          isNonGenderDetection,
+          isNonGenderDetection: false,
         });
       });
     }
@@ -32,9 +32,15 @@ document.addEventListener(
 
     // This function is to handle whenever okcupid button will be clicked.
     function okcupid() {
+      const isTurkey =
+        document.querySelector("#turkey_version").checked || false;
       const message = document.querySelector("#okcupid_message").value;
       chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, { type: "okcupid", message });
+        chrome.tabs.sendMessage(tabs[0].id, {
+          type: "okcupid",
+          message,
+          isTurkey,
+        });
       });
     }
   },

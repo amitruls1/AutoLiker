@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener((props) => {
-  const { type, interval, message, isNonGenderDetection } = props;
+  const { type, interval, message, isNonGenderDetection, isTurkey } = props;
   switch (type) {
     case "tinder":
       executeTinder(interval, isNonGenderDetection);
@@ -10,38 +10,48 @@ chrome.runtime.onMessage.addListener((props) => {
       return;
 
     case "okcupid":
-      executeOkCupid(message);
+      executeOkCupid(message, isTurkey);
       return;
   }
 });
 
 // This function will start auto liking profiles on Tinder.
 const rejectWords = [
-  " trans ",
-  " gay ",
-  " lesbian ",
-  " crossdresser ",
-  " transwomen ",
+  "trans",
+  "gay",
+  "lesbian",
+  "crossdresser",
+  "transwomen",
+  "lady",
+  "ladyboy",
 ];
+const bioTextArray = {
+  current: "",
+  previous: "",
+};
 let totalTinderLikes = 0;
 let totalTinderDisLikes = 0;
 const executeTinder = (interval, isNonGenderDetection) => {
   window.setInterval(() => {
     let isReject = false;
-    if (isNonGenderDetection) {
-      try {
-        const bioArray = document.querySelectorAll(".BreakWord");
-        if (bioArray.length) {
-          rejectWords.forEach((item) => {
-            if (bioArray[0].innerText.includes(item)) {
-              isReject = true;
-            }
-          });
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
+    // if (isNonGenderDetection) {
+    //   try {
+    //     const bioArray = document.querySelectorAll(".BreakWord");
+    //     const bioLength = document.querySelectorAll(".BreakWord").length;
+    //     console.log(bioArray[bioLength - 1].innerText.toLowerCase());
+    //     if (bioLength) {
+    //       rejectWords.forEach((item) => {
+    //         if (
+    //           bioArray[bioLength - 1].innerText.toLowerCase().includes(item)
+    //         ) {
+    //           isReject = true;
+    //         }
+    //       });
+    //     }
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
+    // }
     if (isReject) {
       console.log("Detected Non Straight Gender");
       try {
@@ -65,10 +75,10 @@ const executeTinder = (interval, isNonGenderDetection) => {
       `%cTotal Likes ${totalTinderLikes}`,
       "color:green; font-weight: 600;"
     );
-    console.log(
-      `%cTotal Dislikes ${totalTinderDisLikes}`,
-      "color:red; font-weight: 600;"
-    );
+    // console.log(
+    //   `%cTotal Dislikes ${totalTinderDisLikes}`,
+    //   "color:red; font-weight: 600;"
+    // );
   }, interval);
 };
 
@@ -140,25 +150,31 @@ function sleep(ms) {
 }
 let totalOkcupidLikes = 0;
 let totalOkcupidDisLikes = 0;
-const executeOkCupid = async (message) => {
+const executeOkCupid = async (message, isTurkey) => {
   try {
-    document.querySelectorAll(".intro")[0].click();
+    if (isTurkey) {
+      document
+        .querySelectorAll("[aria-label='comment on this photo']")[0]
+        .click();
+    } else {
+      document.querySelectorAll(".intro")[0].click();
+    }
     await sleep(2500);
     document.querySelector(".messenger-composer").value = message
       ? message
       : lines[2];
-    await sleep(2500);
+    await sleep(2000);
     var event = new Event("input", {
       bubbles: true,
       cancelable: true,
     });
     document.querySelector(".messenger-composer").dispatchEvent(event);
-    await sleep(2500);
+    await sleep(1000);
     document.querySelector(".messenger-toolbar-send").click();
     await sleep(2500);
     document.querySelector(".connection-view-container-close-button").click();
     await sleep(2500);
-    executeOkCupid(message ? message : lines[2]);
+    executeOkCupid(message ? message : lines[2], isTurkey);
     totalOkcupidLikes++;
     console.log(
       `%cTotal Likes & Message ${totalOkcupidLikes}`,
@@ -175,7 +191,7 @@ const executeOkCupid = async (message) => {
         .click();
     }
     await sleep(2500);
-    executeOkCupid(message ? message : lines[2]);
+    executeOkCupid(message ? message : lines[2], isTurkey);
     console.log(e);
   }
 };
