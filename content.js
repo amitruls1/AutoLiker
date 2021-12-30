@@ -69,7 +69,14 @@ const executeTinder = (interval, isNonGenderDetection) => {
       document.querySelectorAll(".button")[1].click();
     } else {
       totalTinderLikes++;
-      document.querySelectorAll(".button")[3].click();
+      if (
+        document.querySelectorAll(".button")[3].innerText.toLowerCase() ===
+        "like"
+      ) {
+        document.querySelectorAll(".button")[3].click();
+      } else {
+        document.querySelectorAll(".button")[4].click();
+      }
     }
     console.log(
       `%cTotal Likes ${totalTinderLikes}`,
