@@ -160,9 +160,7 @@ let totalOkcupidDisLikes = 0;
 const executeOkCupid = async (message, isTurkey) => {
   try {
     if (isTurkey) {
-      document
-        .querySelectorAll("[aria-label='comment on this photo']")[0]
-        .click();
+      document.querySelectorAll(".dt-comment-fab")[0].click();
     } else {
       document.querySelectorAll(".intro")[0].click();
     }

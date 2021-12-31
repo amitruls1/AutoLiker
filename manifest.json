@@ -1,8 +1,8 @@
 {
   "name": "Auto Date Liker",
-  "version": "1.06",
+  "version": "1.07",
   "description": "This extension is use to start auto like on Tinder, Bumble and OKCupid",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "minimum_chrome_version": "46",
   "permissions": ["activeTab"],
   "content_scripts": [
@@ -11,7 +11,7 @@
       "js": ["content.js"]
     }
   ],
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_title": "Date Liker",
     "default_icon": "icon.png"
