@@ -157,15 +157,11 @@ function sleep(ms) {
 }
 let totalOkcupidLikes = 0;
 let totalOkcupidDisLikes = 0;
-const executeOkCupid = async (message, isTurkey) => {
+const executeOkCupid = async (message) => {
   try {
-    if (isTurkey) {
-      document.querySelectorAll(".dt-comment-fab")[0].click();
-    } else {
-      document.querySelectorAll(".intro")[0].click();
-    }
+    document.querySelectorAll(".dt-comment-fab")[0].click();
     await sleep(2500);
-    document.querySelector(".messenger-composer").value = message
+    document.querySelector("[data-cy='messenger.messageInput']").value = message
       ? message
       : lines[2];
     await sleep(2000);
@@ -173,13 +169,15 @@ const executeOkCupid = async (message, isTurkey) => {
       bubbles: true,
       cancelable: true,
     });
-    document.querySelector(".messenger-composer").dispatchEvent(event);
+    document
+      .querySelector("[data-cy='messenger.messageInput']")
+      .dispatchEvent(event);
     await sleep(1000);
-    document.querySelector(".messenger-toolbar-send").click();
+    document.querySelector("[data-cy='messenger.sendButton']").click();
     await sleep(2500);
-    document.querySelector(".connection-view-container-close-button").click();
+    document.querySelector("[data-cy='messenger.closeButton']").click();
     await sleep(2500);
-    executeOkCupid(message ? message : lines[2], isTurkey);
+    executeOkCupid(message ? message : lines[2]);
     totalOkcupidLikes++;
     console.log(
       `%cTotal Likes & Message ${totalOkcupidLikes}`,
@@ -187,16 +185,11 @@ const executeOkCupid = async (message, isTurkey) => {
     );
   } catch (e) {
     await sleep(2500);
-    if (
-      document.querySelectorAll(".connection-view-container-close-button")
-        .length
-    ) {
-      document
-        .querySelectorAll(".connection-view-container-close-button")[0]
-        .click();
+    if (document.querySelectorAll("[data-cy='messenger.closeButton']").length) {
+      document.querySelectorAll("[data-cy='messenger.closeButton']")[0].click();
     }
     await sleep(2500);
-    executeOkCupid(message ? message : lines[2], isTurkey);
+    executeOkCupid(message ? message : lines[2]);
     console.log(e);
   }
 };

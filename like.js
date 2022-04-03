@@ -32,14 +32,11 @@ document.addEventListener(
 
     // This function is to handle whenever okcupid button will be clicked.
     function okcupid() {
-      const isTurkey =
-        document.querySelector("#turkey_version").checked || false;
       const message = document.querySelector("#okcupid_message").value;
       chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, {
           type: "okcupid",
           message,
-          isTurkey,
         });
       });
     }
