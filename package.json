@@ -1,7 +1,7 @@
 {
   "name": "autoliker",
-  "version": "1.0.0",
-  "description": "This project is a chrome extension (microsoft edge) which helps to automate liking process on Tinder, Bumble and Okcupid.",
+  "version": "3.0.0",
+  "description": "This project is a chrome extension (microsoft edge) which helps to automate liking process on Tinder, Bumble, Happn and Okcupid.",
   "main": "content.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,7 @@
   "keywords": [
     "Tinder",
     "Bumble",
+    "Happn",
     "Okcupid",
     "Auto",
     "Like",
@@ -22,7 +23,7 @@
     "Like",
     "Dating"
   ],
-  "author": "Amit Chauhan",
+  "author": "Amit Chauhan / chauhanamit130@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/iamnotbatma/AutoLiker/issues"

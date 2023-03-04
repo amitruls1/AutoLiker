@@ -9,6 +9,10 @@ chrome.runtime.onMessage.addListener((props) => {
       executeBumble(interval);
       return;
 
+    case "happn":
+      executeHappn(interval);
+      return;
+
     case "okcupid":
       executeOkCupid(message, isTurkey);
       return;
@@ -111,6 +115,24 @@ const executeBumble = (interval) => {
     totalBumbleLikes++;
     console.log(
       `%cTotal Likes ${totalBumbleLikes}`,
+      "color:green; font-weight: 600;"
+    );
+  }, interval);
+};
+
+let totalHappnLikes = 0;
+let totalHappnDisLikes = 0;
+const executeHappn = (interval) => {
+  window.setInterval(() => {
+    document.querySelectorAll("[data-testid='profile-btn-like']")[0].click();
+    try {
+      document
+        .querySelectorAll("[data-testid='onboarding-modal-confirm']")[0]
+        .click();
+    } catch (e) {}
+    totalHappnLikes++;
+    console.log(
+      `%cTotal Likes ${totalHappnLikes}`,
       "color:green; font-weight: 600;"
     );
   }, interval);
