@@ -1,167 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="script-src 'self' 'sha256-h7DejX9K1ypTP7Rvepg7kMexlKYDZEEEVQeMyBpCiJM='"
-    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300,700,500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-      crossorigin="anonymous"
-    />
-    <title>Auto Liker</title>
-    <style>
-      body {
-        font-family: "Montserrat", sans-serif !important;
-        padding: 10px;
-      }
-      .box-layout {
-        width: 300px;
-        padding: 10px;
-        /* box-shadow: 1px 1px 2px 1px #ccc; */
-        height: auto;
-      }
-      .tinder {
-        margin: 10px 0;
-        border: 0px;
-        letter-spacing: 1px;
-        text-align: center;
-        width: 100%;
-        height: 35px;
-        border-radius: 10px;
-        background: #fd297b;
-        color: #fff;
-        font-weight: 500;
-      }
-      .bumble {
-        margin: 10px 0;
-        border: 0px;
-        letter-spacing: 1px;
-        text-align: center;
-        width: 100%;
-        height: 35px;
-        border-radius: 10px;
-        background: rgb(255, 198, 41);
-        color: #fff;
-        font-weight: 500;
-      }
-      .happn {
-        margin: 10px 0;
-        border: 0px;
-        letter-spacing: 1px;
-        text-align: center;
-        width: 100%;
-        height: 35px;
-        border-radius: 10px;
-        background: #028bd0;
-        color: #fff;
-        font-weight: 500;
-      }
-      .okcupid {
-        margin: 10px 0;
-        border: 0px;
-        letter-spacing: 1px;
-        text-align: center;
-        width: 100%;
-        height: 35px;
-        border-radius: 10px;
-        background: #ff4dc4;
-        color: #fff;
-        font-weight: 500;
-      }
-      #tinder_interval {
-        width: 100%;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #ec3f7a;
-        padding: 10px;
-        display: inline-block;
-      }
-      #tinder_badword_checkbox {
-        width: 100%;
-        cursor: pointer;
-        display: inline-block;
-      }
-      #bumble_interval {
-        width: 100%;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #f9c647;
-        padding: 10px;
-      }
-      #okcupid_message {
-        width: 100%;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #ff4dc4;
-        padding: 10px;
-      }
-      hr {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-    </style>
+    <title>Auto Date Liker</title>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <div class="box-layout text-center">
-      <h5 class="text-center">
-        <strong>Auto Liker</strong>
-      </h5>
-      <hr />
-      <button class="tinder">
-        Start Tinder
-        <img
-          src="https://cdn.iconscout.com/icon/free/png-24/tinder-3691231-3073751.png?f=avif&w=24"
-        />
-        Likes
-      </button>
-      <hr />
-      <button class="bumble">
-        Start Bumble
-        <img
-          src="https://cdn.iconscout.com/icon/free/png-24/bumble-4062806-3357692.png?f=avif&w=24"
-        />
-        Likes
-      </button>
-      <hr />
-      <button class="happn">
-        Start Happn
-        <img
-          src="https://img.utdstc.com/icon/2ba/15e/2ba15e44296a44ab0241bbf5e9de2127c6ed054fce86403a189c244578ab6ec2:100"
-          width="24px"
-        />
-        Likes
-      </button>
-      <hr />
-      <input
-        type="text"
-        id="okcupid_message"
-        placeholder="Enter your pickup line or default will be send"
-      />
-      <button class="okcupid">
-        Start Okcupid
-        <img
-          src="https://cdn.iconscout.com/icon/free/png-24/okcupid-4054136-3353091.png?f=avif&w=24"
-        />
-        Likes & Message
-      </button>
-      <br />
-      <small class="description text-center">
-        Please go to match page of any site and press button according to that
-        site. <br />
-        [Tip: Just go to okcupid page, select online stack and click on Start
-        Okcupid Like button, you will get tons of matches.]
-      </small>
-      <br />
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Auto Date Liker</h1>
+      <div class="subtitle">Smart auto-liker for dating apps</div>
     </div>
-    <script src="like.js"></script>
+
+    <!-- Detected Site -->
+    <div class="site-banner" id="siteBanner">
+      <div class="dot" id="siteDot"></div>
+      <div class="site-name" id="siteName">
+        Navigate to a supported site to begin
+      </div>
+    </div>
+
+    <!-- Platform Cards -->
+    <div class="platforms">
+
+      <!-- Tinder -->
+      <div class="platform-card" data-platform="tinder">
+        <div class="card-top">
+          <div class="card-info">
+            <div class="platform-icon tinder">T</div>
+            <div>
+              <div class="platform-label">Tinder</div>
+              <div class="like-count">Likes: <span id="tinderCount">0</span></div>
+            </div>
+          </div>
+          <button class="toggle-btn" data-platform="tinder" id="tinderToggle"
+                  title="Start / Stop Tinder auto-like"></button>
+        </div>
+        <div class="speed-section">
+          <div class="speed-header">
+            <span class="speed-label">Speed</span>
+            <span class="speed-value" id="tinderSpeedLabel">Normal</span>
+          </div>
+          <input type="range" class="speed-slider" id="tinderSpeed"
+                 min="200" max="3000" value="1000" step="100" />
+        </div>
+      </div>
+
+      <!-- Bumble -->
+      <div class="platform-card" data-platform="bumble">
+        <div class="card-top">
+          <div class="card-info">
+            <div class="platform-icon bumble">B</div>
+            <div>
+              <div class="platform-label">Bumble</div>
+              <div class="like-count">Likes: <span id="bumbleCount">0</span></div>
+            </div>
+          </div>
+          <button class="toggle-btn" data-platform="bumble" id="bumbleToggle"
+                  title="Start / Stop Bumble auto-like"></button>
+        </div>
+        <div class="speed-section">
+          <div class="speed-header">
+            <span class="speed-label">Speed</span>
+            <span class="speed-value" id="bumbleSpeedLabel">Normal</span>
+          </div>
+          <input type="range" class="speed-slider" id="bumbleSpeed"
+                 min="200" max="3000" value="1000" step="100" />
+        </div>
+      </div>
+
+      <!-- Happn -->
+      <div class="platform-card" data-platform="happn">
+        <div class="card-top">
+          <div class="card-info">
+            <div class="platform-icon happn">H</div>
+            <div>
+              <div class="platform-label">Happn</div>
+              <div class="like-count">Likes: <span id="happnCount">0</span></div>
+            </div>
+          </div>
+          <button class="toggle-btn" data-platform="happn" id="happnToggle"
+                  title="Start / Stop Happn auto-like"></button>
+        </div>
+        <div class="speed-section">
+          <div class="speed-header">
+            <span class="speed-label">Speed</span>
+            <span class="speed-value" id="happnSpeedLabel">Normal</span>
+          </div>
+          <input type="range" class="speed-slider" id="happnSpeed"
+                 min="200" max="3000" value="1000" step="100" />
+        </div>
+      </div>
+
+      <!-- OKCupid -->
+      <div class="platform-card" data-platform="okcupid">
+        <div class="card-top">
+          <div class="card-info">
+            <div class="platform-icon okcupid">O</div>
+            <div>
+              <div class="platform-label">OKCupid</div>
+              <div class="like-count">Likes: <span id="okcupidCount">0</span></div>
+            </div>
+          </div>
+          <button class="toggle-btn" data-platform="okcupid" id="okcupidToggle"
+                  title="Start / Stop OKCupid auto-like"></button>
+        </div>
+        <div class="message-input">
+          <label for="okcupidMsg">Pickup line (optional)</label>
+          <input type="text" id="okcupidMsg"
+                 placeholder="Leave blank for a random line" />
+        </div>
+        <div class="speed-section">
+          <div class="speed-header">
+            <span class="speed-label">Speed</span>
+            <span class="speed-value" id="okcupidSpeedLabel">Normal</span>
+          </div>
+          <input type="range" class="speed-slider" id="okcupidSpeed"
+                 min="1000" max="5000" value="2500" step="250" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-left">
+        <div class="status-dot" id="statusDot"></div>
+        <span class="status-text" id="statusText">Idle</span>
+      </div>
+      <span class="total-likes" id="totalLikes">0 total likes</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Open the dating site first, then toggle a platform above.<br/>
+      <a href="https://github.com/amitruls1/AutoLiker" target="_blank">GitHub</a></p>
+    </div>
+
+    <script src="popup.js"></script>
   </body>
 </html>
